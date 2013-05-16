@@ -84,7 +84,8 @@ public class ArimaBolt extends BaseRichBolt {
 						.next();
 				inputs[i++] = videoInfoVariant.getStreamCount();
 			}
-			collector.emit(new Values(o, Arima.calculate(inputs, numPrediction)));
+			double[] prediction = Arima.calculate(inputs, numPrediction);
+			collector.emit(new Values(o,null));
 		}
 		
 	}
