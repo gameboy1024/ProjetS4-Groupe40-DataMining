@@ -9,28 +9,28 @@ import org.json.JSONObject;
  */
 public class Channel {
 	
-	private int  id ;
-	private String  views_count ;
+	private Long id ;
+	private Long  views_count ;
 	
 	
 	public Channel(JSONObject channel) throws JSONException{
 		
-		id=channel.getInt("id");
-		views_count=channel.getString("views_count");
+		id=channel.getLong("id");
+		views_count=channel.getLong("views_count");
 		
 	}
 	
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getViews_count() {
+	public Long getViews_count() {
 		return views_count;
 	}
-	public void setViews_count(String views_count) {
+	public void setViews_count(Long views_count) {
 		this.views_count = views_count;
 	}
 	

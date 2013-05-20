@@ -1,50 +1,38 @@
 package projets4.case1.spout;
 
-import java.sql.ResultSet;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Map;
 
-import org.json.JSONArray;
+import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import projets4.case1.basic.VideoInfoVariant;
-import projets4.case1.connectors.ConnectorDataBase;
-import projets4.case1.database.Connexion;
+import projets4.case1.connectors.ConnectorJustinTvAPI;
 import projets4.case1.database.Stream;
 import projetsS4.case1.Exeptions.EndDataBaseException;
 import backtype.storm.spout.SpoutOutputCollector;
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.OutputFieldsDeclarer;
-import backtype.storm.topology.base.BaseRichSpout;
 import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Values;
 import backtype.storm.utils.Utils;
 
-/**
- * Spout for test. 1. Read the data from the data file and generate a list. 2.
- * Generator randomly an output from the list.
- * 
- * @author Ahmed
- * 
- */
-public class DatabaseSpout extends BaseRichSpout {
-
+public class RealStreamsSpot {
 	private ArrayList<Stream> streams;
-	private ConnectorDataBase connector;
+	private ConnectorJustinTvAPI connector;
 	SpoutOutputCollector _collector;
 	private int countForStreams;
 
-	public DatabaseSpout(String dataFileName) {
+	public RealStreamsSpot(String dataFileName) {
 		this.streams = new ArrayList<Stream>();
-		connector = new ConnectorDataBase(dataFileName);
+		connector = new ConnectorJustinTvAPI(dataFileName);
 		countForStreams = 0;
 	}
 
-	public void readNextStream() throws JSONException, SQLException,
-			EndDataBaseException {
+	public void readNextStream() throws ClientProtocolException, IOException,
+			JSONException {
 		while (countForStreams >= streams.size()) {
 			System.out
 					.println("-------------------------------------------------------------");
@@ -53,27 +41,15 @@ public class DatabaseSpout extends BaseRichSpout {
 		}
 	}
 
-	@Override
 	public void open(Map conf, TopologyContext context,
 			SpoutOutputCollector collector) {
 		_collector = collector;
 	}
 
-	@Override
-	public void nextTuple() {
+	public void nextTuple() throws ClientProtocolException, IOException,
+			JSONException {
 		Utils.sleep(100);
-		try {
-			readNextStream();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (EndDataBaseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		readNextStream();
 
 		long viewsCount = streams.get(countForStreams++).getChannel()
 				.getViews_count();
@@ -82,8 +58,8 @@ public class DatabaseSpout extends BaseRichSpout {
 
 	}
 
-	public void nextTupleForTest() throws JSONException, SQLException,
-			EndDataBaseException {
+	public void nextTupleForTest() throws ClientProtocolException, IOException,
+			JSONException {
 		readNextStream();
 		long viewsCount = streams.get(countForStreams).getChannel()
 				.getViews_count();
@@ -93,9 +69,9 @@ public class DatabaseSpout extends BaseRichSpout {
 		System.out.println("   Count: " + viewsCount);
 	}
 
-	@Override
 	public void declareOutputFields(OutputFieldsDeclarer declarer) {
 		declarer.declare(new Fields("obj", "count"));
 
 	}
+
 }

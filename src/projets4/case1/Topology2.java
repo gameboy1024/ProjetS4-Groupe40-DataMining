@@ -16,15 +16,15 @@ public static void main(String[] args) throws Exception {
         
         TopologyBuilder builder = new TopologyBuilder();
         // Modify the database target for your own case
-        builder.setSpout("DatabaseSpout", new DatabaseSpout("~/2012-08-01.db"), 1);
+        builder.setSpout("DatabaseSpout", new DatabaseSpout("/home/hmed/workspace/sqliteTest/BD/2012-08-01.db"), 1);
         
         builder.setBolt("SliderBolt", new FilterBolt(), 8)
                  .fieldsGrouping("DatabaseSpout", new Fields("obj"));
-        builder.setBolt("ArimaBolt", new ArimaBolt(), 12)
-                 .fieldsGrouping("SliderBolt", new Fields("obj"));
+        //builder.setBolt("ArimaBolt", new ArimaBolt(), 12)
+         //        .fieldsGrouping("SliderBolt", new Fields("obj"));
 
         Config conf = new Config();
-        conf.setDebug(true);
+        conf.setDebug(false);
 
         
         if(args!=null && args.length > 0) {
