@@ -9,7 +9,10 @@ import backtype.storm.LocalCluster;
 import backtype.storm.StormSubmitter;
 import backtype.storm.topology.TopologyBuilder;
 import backtype.storm.tuple.Fields;
-
+/**
+ * This is a storm topology using random generated tuples as inputs
+ *
+ */
 public class Topology {
 public static void main(String[] args) throws Exception {
         
