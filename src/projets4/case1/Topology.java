@@ -1,8 +1,8 @@
 package projets4.case1;
 
 
-import projets4.case1.prediction.ArimaBolt;
-import projets4.case1.prediction.FilterBolt;
+import projets4.case1.bolt.ArimaBolt;
+import projets4.case1.bolt.FilterBolt;
 import projets4.case1.spout.RandomSpout;
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
