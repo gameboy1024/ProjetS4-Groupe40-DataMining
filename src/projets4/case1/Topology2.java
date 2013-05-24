@@ -2,6 +2,7 @@ package projets4.case1;
 
 
 import projets4.case1.bolt.FilterBolt;
+import projets4.case1.spout.DatabaseSpout;
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
 import backtype.storm.StormSubmitter;
@@ -13,7 +14,7 @@ public static void main(String[] args) throws Exception {
         
         TopologyBuilder builder = new TopologyBuilder();
         // Modify the database target for your own case
-        
+        builder.setSpout("DatabaseSpout", new DatabaseSpout("/home/hmed/workspace/sqliteTest/BD/2012-08-01.db"), 1);
         
         builder.setBolt("SliderBolt", new FilterBolt(), 8)
                  .fieldsGrouping("DatabaseSpout", new Fields("obj"));
