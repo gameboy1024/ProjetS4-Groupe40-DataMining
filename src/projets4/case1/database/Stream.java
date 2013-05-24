@@ -9,9 +9,7 @@ import org.json.JSONObject;
  *
  */
 
-public class Stream {
-	
-	
+public class Stream{
 	private Channel channel;
 
 	public Stream(JSONObject stream) throws JSONException {

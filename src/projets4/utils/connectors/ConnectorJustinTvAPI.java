@@ -1,8 +1,6 @@
-package projets4.case1.connectors;
+package projets4.utils.connectors;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.apache.http.client.ClientProtocolException;
@@ -15,9 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import projets4.case1.database.Connexion;
 import projets4.case1.database.Stream;
-import projets4.exceptions.EndDataBaseException;
 
 public class ConnectorJustinTvAPI {
 

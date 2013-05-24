@@ -1,5 +1,7 @@
 package projets4.case1.database;
 
+import java.io.Serializable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 /**
@@ -7,8 +9,11 @@ import org.json.JSONObject;
  * @author Ahmed
  *
  */
-public class Channel {
+public class Channel{
 	
+	/**
+	 * 
+	 */
 	private Long id ;
 	private Long  views_count ;
 	

@@ -1,17 +1,12 @@
 package projets4.case1.database;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Connexion implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6548306090648124272L;
+public class Connexion {
 	private String DBPath;
 	private Connection connection = null;
 	private Statement statement = null;

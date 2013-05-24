@@ -78,7 +78,7 @@ public class FilterBolt extends BaseRichBolt {
 			Object obj = entry.getKey();
 			VideoInfoVariant count = entry.getValue();
 			collector.emit(new Values(obj, count));
-			LOG.info("EMIT: "+obj+"  "+count);
+			//LOG.info("EMIT: "+obj+"  "+count);
 		}
 	}
 

@@ -1,7 +1,6 @@
 package projets4.case1.spout;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -9,9 +8,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 
 import projets4.case1.basic.VideoInfoVariant;
-import projets4.case1.connectors.ConnectorJustinTvAPI;
 import projets4.case1.database.Stream;
-import projets4.exceptions.EndDataBaseException;
+import projets4.utils.connectors.ConnectorJustinTvAPI;
 import backtype.storm.spout.SpoutOutputCollector;
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.OutputFieldsDeclarer;
@@ -21,6 +19,10 @@ import backtype.storm.tuple.Values;
 import backtype.storm.utils.Utils;
 
 public class RealStreamsSpout extends BaseRichSpout{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3687581634797278512L;
 	private ArrayList<Stream> streams;
 	private ConnectorJustinTvAPI connector;
 	SpoutOutputCollector _collector;
@@ -49,12 +51,18 @@ public class RealStreamsSpout extends BaseRichSpout{
 
 	public void nextTuple() {
 		Utils.sleep(100);
-		try {
-			readNextStream();
-		} catch (IOException | JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				readNextStream();
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		long viewsCount = streams.get(countForStreams++).getChannel()
 				.getViews_count();
