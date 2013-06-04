@@ -1,0 +1,9 @@
+
+if [ -d /usr/share/maven ]
+then
+  echo Maven detected! No need to install
+else
+  sudo apt-get install maven
+fi
+
+mvn -f m2-pom.xml compile exec:java -Dexec.classpathScope=compile -Dexec.mainClass=projets4.case1.Topology2

@@ -24,7 +24,7 @@ public class ArimaBolt extends BaseRichBolt {
 
 	private static final long serialVersionUID = 632265333724492194L;
 	private static final int DEFAULT_EMIT_FREQUENCY_IN_SECONDS = 3;
-	private static final int DEFAULT_COUNTER_SIZE = 7;
+	private static final int DEFAULT_COUNTER_SIZE = 50;
 	private static final int DEFAULT_PREDICTION_NUMBER = 1;
 	private static final Logger LOG = Logger.getLogger(ArimaBolt.class);
 	private OutputCollector collector;

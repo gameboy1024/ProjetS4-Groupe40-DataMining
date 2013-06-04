@@ -48,7 +48,7 @@ public class Arima implements Serializable {
 		// This function should be synchronized as there would be multiple running thread to call it.
 		// This could cause problem as they all try to assign their input in to R
 		synchronized (re) {
-			LOG.info("ARIMA CALCULATION: Got input array ");
+			LOG.info("Got input array ");
 			for (long l : inputs) {
 				System.out.print(l + ", ");
 			}
