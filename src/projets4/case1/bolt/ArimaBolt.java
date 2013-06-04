@@ -24,7 +24,7 @@ public class ArimaBolt extends BaseRichBolt {
 
 	private static final long serialVersionUID = 632265333724492194L;
 	private static final int DEFAULT_EMIT_FREQUENCY_IN_SECONDS = 3;
-	private static final int DEFAULT_COUNTER_SIZE = 50;
+	private static final int DEFAULT_COUNTER_SIZE = 10;
 	private static final int DEFAULT_PREDICTION_NUMBER = 1;
 	private static final Logger LOG = Logger.getLogger(ArimaBolt.class);
 	private OutputCollector collector;
@@ -72,6 +72,7 @@ public class ArimaBolt extends BaseRichBolt {
 		LOG.info("Get " + count.getStreamCount() + " as input count");
 		counter.addEntry(obj, count);
 		collector.ack(input);
+		LOG.info("Get " + count.getStreamCount() + " as input count over");
 	}
 
 	private void emit(Map<Object, LinkedList<VideoInfoVariant>> variantInfos) {

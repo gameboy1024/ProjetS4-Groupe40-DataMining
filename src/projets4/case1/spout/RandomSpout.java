@@ -15,10 +15,9 @@ import backtype.storm.utils.Utils;
 
 /**
  * 
- * Class to simulate the servers in different regions:
- * Secondary randomization.
+ * Class to simulate the servers who generates data.
  * 
- * Not used for the moment
+ * Not used any more
  * 
  * @author Botu
  *
