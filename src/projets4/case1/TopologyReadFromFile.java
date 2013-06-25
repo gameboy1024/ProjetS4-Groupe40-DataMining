@@ -22,13 +22,16 @@ public class TopologyReadFromFile {
 
 		TopologyBuilder builder = new TopologyBuilder();
 		// Modify the text file for your own case
+		
 		builder.setSpout("ReadFromFileSpout", new ReadFromFileSpout(
-				"/home/sbt/inputs"), 1);
-
-		builder.setBolt("SliderBolt", new FilterBolt(), 8).fieldsGrouping(
+				"/home/sbt/inputs"), 100);
+		
+		builder.setBolt("SliderBolt", new FilterBolt(), 5).fieldsGrouping(
 				"ReadFromFileSpout", new Fields("obj"));
-		builder.setBolt("ArimaBolt", new ArimaBolt(), 12).fieldsGrouping(
+		
+		builder.setBolt("ArimaBolt", new ArimaBolt(), 10).fieldsGrouping(
 				"SliderBolt", new Fields("obj"));
+		
 		builder.setBolt("WriteToFileBolt",
 				new WriteToFileBolt("/home/sbt/outputs"), 1).fieldsGrouping(
 				"ArimaBolt", new Fields("obj"));
@@ -37,17 +40,17 @@ public class TopologyReadFromFile {
 		conf.setDebug(false);
 
 		if (args != null && args.length > 0) {
-			conf.setNumWorkers(3);
+			conf.setNumWorkers(100);
 
 			StormSubmitter.submitTopology(args[0], conf,
 					builder.createTopology());
 		} else {
-			conf.setMaxTaskParallelism(3);
+			conf.setMaxTaskParallelism(100);
 
 			LocalCluster cluster = new LocalCluster();
 			cluster.submitTopology("Case1", conf, builder.createTopology());
 
-			Thread.sleep(600000);
+			Thread.sleep(30000);
 
 			cluster.shutdown();
 		}

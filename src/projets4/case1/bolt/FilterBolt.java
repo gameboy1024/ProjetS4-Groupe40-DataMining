@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
-import projets4.case1.basic.Slider;
-import projets4.case1.basic.VideoInfoVariant;
+import projets4.basic.Slider;
+import projets4.basic.VideoInfoVariant;
 import projets4.utils.TupleHelpers;
 import backtype.storm.Config;
 import backtype.storm.task.OutputCollector;

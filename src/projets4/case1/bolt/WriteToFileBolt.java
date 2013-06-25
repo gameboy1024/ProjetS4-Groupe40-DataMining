@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 
-import projets4.case1.basic.VideoInfoVariant;
+import projets4.basic.VideoInfoVariant;
 
 import backtype.storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;

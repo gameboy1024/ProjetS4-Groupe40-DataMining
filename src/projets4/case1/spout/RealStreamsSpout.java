@@ -7,7 +7,7 @@ import java.util.Map;
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 
-import projets4.case1.basic.VideoInfoVariant;
+import projets4.basic.VideoInfoVariant;
 import projets4.case1.database.Stream;
 import projets4.utils.connectors.ConnectorJustinTvAPI;
 import backtype.storm.spout.SpoutOutputCollector;

@@ -19,14 +19,14 @@ public static void main(String[] args) throws Exception {
         TopologyBuilder builder = new TopologyBuilder();
         
         builder.setSpout("RandomSpout", new RandomSpout(), 1);
-        
+
         builder.setBolt("SliderBolt", new FilterBolt(), 8)
                  .fieldsGrouping("RandomSpout", new Fields("obj"));
         builder.setBolt("ArimaBolt", new ArimaBolt(), 12)
                  .fieldsGrouping("SliderBolt", new Fields("obj"));
 
         Config conf = new Config();
-        conf.setDebug(false);
+        conf.setDebug(true);
 
         
         if(args!=null && args.length > 0) {

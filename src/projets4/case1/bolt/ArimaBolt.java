@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import projets4.case1.basic.Arima;
-import projets4.case1.basic.Counter;
-import projets4.case1.basic.VideoInfoVariant;
+import projets4.basic.Arima;
+import projets4.basic.Counter;
+import projets4.basic.VideoInfoVariant;
 import projets4.utils.TupleHelpers;
 import backtype.storm.Config;
 import backtype.storm.task.OutputCollector;
@@ -23,7 +23,7 @@ import backtype.storm.tuple.Values;
 public class ArimaBolt extends BaseRichBolt {
 
 	private static final long serialVersionUID = 632265333724492194L;
-	private static final int DEFAULT_EMIT_FREQUENCY_IN_SECONDS = 3;
+	private static final int DEFAULT_EMIT_FREQUENCY_IN_SECONDS = 5;
 	private static final int DEFAULT_COUNTER_SIZE = 10;
 	private static final int DEFAULT_PREDICTION_NUMBER = 1;
 	private static final Logger LOG = Logger.getLogger(ArimaBolt.class);
@@ -33,6 +33,7 @@ public class ArimaBolt extends BaseRichBolt {
 	private final int numPrediction;
 	private Counter counter;
 	private Arima arima;
+	private int distinguisher;
 
 	public ArimaBolt() {
 		this(DEFAULT_EMIT_FREQUENCY_IN_SECONDS, DEFAULT_COUNTER_SIZE,
@@ -46,6 +47,7 @@ public class ArimaBolt extends BaseRichBolt {
 		this.counter = new Counter(this.counterSize);
 		this.emitFrequencyInSeconds = emitFrequencyInSeconds;
 		this.arima = new Arima();
+		this.distinguisher = Integer.MIN_VALUE;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -59,7 +61,7 @@ public class ArimaBolt extends BaseRichBolt {
 	@Override
 	public void execute(Tuple input) {
 		if (TupleHelpers.isTickTuple(input)) {
-			LOG.info("Received tick tuple, triggering emit of predictive counts");
+			//LOG.info("Received tick tuple, triggering emit of predictive counts");
 			emit(counter.getVariantInfos());
 		} else {
 			process(input);
@@ -69,10 +71,10 @@ public class ArimaBolt extends BaseRichBolt {
 	private void process(Tuple input) {
 		Object obj = input.getValue(0);
 		VideoInfoVariant count = (VideoInfoVariant) input.getValue(1);
-		LOG.info("Get " + count.getStreamCount() + " as input count");
+		//LOG.info("Get " + count.getStreamCount() + " as input count");
 		counter.addEntry(obj, count);
 		collector.ack(input);
-		LOG.info("Get " + count.getStreamCount() + " as input count over");
+		//LOG.info("Get " + count.getStreamCount() + " as input count over");
 	}
 
 	private void emit(Map<Object, LinkedList<VideoInfoVariant>> variantInfos) {
@@ -85,8 +87,12 @@ public class ArimaBolt extends BaseRichBolt {
 						.next();
 				inputs[i++] = videoInfoVariant.getStreamCount();
 			}
-			double[] prediction = Arima.calculate(inputs, numPrediction);
-			LOG.info("Got prediction number :  " + prediction[0]);
+			double[] prediction = arima.calculate(inputs, numPrediction, distinguisher);
+			if (distinguisher == Integer.MAX_VALUE) {
+				distinguisher = Integer.MIN_VALUE;
+			}
+			
+			//LOG.info("Got prediction number :  " + prediction[0]);
 			collector.emit(new Values(o,prediction));
 		}
 		
