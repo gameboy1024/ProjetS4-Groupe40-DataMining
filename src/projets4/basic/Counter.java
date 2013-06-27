@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import projets4.case1.data.VideoInfoVariant;
+
 
 public class Counter implements Serializable {
 

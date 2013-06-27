@@ -3,7 +3,7 @@ package projets4.case1.spout;
 import java.util.Map;
 import java.util.Random;
 
-import projets4.basic.VideoInfoVariant;
+import projets4.case1.data.VideoInfoVariant;
 
 import backtype.storm.spout.SpoutOutputCollector;
 import backtype.storm.task.TopologyContext;

@@ -5,7 +5,7 @@ import java.util.Map.Entry;
 import org.apache.log4j.Logger;
 
 import projets4.basic.Slider;
-import projets4.basic.VideoInfoVariant;
+import projets4.case1.data.VideoInfoVariant;
 import projets4.utils.TupleHelpers;
 import backtype.storm.Config;
 import backtype.storm.task.OutputCollector;
@@ -59,7 +59,7 @@ public class FilterBolt extends BaseRichBolt {
 	@Override
 	public void execute(Tuple input) {
 		if (TupleHelpers.isTickTuple(input)) {
-			//LOG.info("Received tick tuple, triggering emit of current counts");
+			LOG.info("Received tick tuple, triggering emit of current counts");
 			emit(slider.getVariantInfos());
 		} else {
 			process(input);
@@ -78,7 +78,7 @@ public class FilterBolt extends BaseRichBolt {
 			Object obj = entry.getKey();
 			VideoInfoVariant count = entry.getValue();
 			collector.emit(new Values(obj, count));
-			//LOG.info("EMIT: "+obj+"  "+count);
+			LOG.info("EMIT: "+obj+"  "+count);
 		}
 	}
 

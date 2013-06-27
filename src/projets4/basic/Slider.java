@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import projets4.case1.data.VideoInfoBasic;
+import projets4.case1.data.VideoInfoVariant;
+
 /**
  * @author sbt
  *

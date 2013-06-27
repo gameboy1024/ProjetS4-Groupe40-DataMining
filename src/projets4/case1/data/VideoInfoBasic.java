@@ -1,4 +1,4 @@
-package projets4.case1.basic;
+package projets4.case1.data;
 
 import java.util.ArrayList;
 

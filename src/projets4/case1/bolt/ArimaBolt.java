@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 
 import projets4.basic.Arima;
 import projets4.basic.Counter;
-import projets4.basic.VideoInfoVariant;
+import projets4.case1.data.VideoInfoVariant;
 import projets4.utils.TupleHelpers;
 import backtype.storm.Config;
 import backtype.storm.task.OutputCollector;
@@ -61,7 +61,7 @@ public class ArimaBolt extends BaseRichBolt {
 	@Override
 	public void execute(Tuple input) {
 		if (TupleHelpers.isTickTuple(input)) {
-			//LOG.info("Received tick tuple, triggering emit of predictive counts");
+			LOG.info("Received tick tuple, triggering emit of predictive counts");
 			emit(counter.getVariantInfos());
 		} else {
 			process(input);
@@ -71,7 +71,7 @@ public class ArimaBolt extends BaseRichBolt {
 	private void process(Tuple input) {
 		Object obj = input.getValue(0);
 		VideoInfoVariant count = (VideoInfoVariant) input.getValue(1);
-		//LOG.info("Get " + count.getStreamCount() + " as input count");
+		LOG.info("Get " + count.getStreamCount() + " as input count");
 		counter.addEntry(obj, count);
 		collector.ack(input);
 		//LOG.info("Get " + count.getStreamCount() + " as input count over");
@@ -92,7 +92,7 @@ public class ArimaBolt extends BaseRichBolt {
 				distinguisher = Integer.MIN_VALUE;
 			}
 			
-			//LOG.info("Got prediction number :  " + prediction[0]);
+			LOG.info("Got prediction number :  " + prediction[0]);
 			collector.emit(new Values(o,prediction));
 		}
 		

@@ -1,4 +1,4 @@
-package projets4.basic;
+package projets4.case1.data;
 
 
 public class VideoInfoVariant {

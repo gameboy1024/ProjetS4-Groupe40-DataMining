@@ -9,7 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 
-import projets4.basic.VideoInfoVariant;
+import projets4.case1.data.VideoInfoVariant;
 import projets4.case1.database.Stream;
 import projets4.exceptions.EndDataBaseException;
 import projets4.utils.connectors.ConnectorDataBase;

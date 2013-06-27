@@ -11,7 +11,7 @@ import java.util.Random;
 import org.apache.commons.logging.Log;
 import org.apache.log4j.Logger;
 
-import projets4.basic.VideoInfoVariant;
+import projets4.case1.data.VideoInfoVariant;
 import backtype.storm.spout.SpoutOutputCollector;
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.OutputFieldsDeclarer;

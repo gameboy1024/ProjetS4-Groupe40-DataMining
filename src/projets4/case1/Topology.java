@@ -18,7 +18,7 @@ public static void main(String[] args) throws Exception {
         
         TopologyBuilder builder = new TopologyBuilder();
         
-        builder.setSpout("RandomSpout", new RandomSpout(), 1);
+        builder.setSpout("RandomSpout", new RandomSpout(), 2);
 
         builder.setBolt("SliderBolt", new FilterBolt(), 8)
                  .fieldsGrouping("RandomSpout", new Fields("obj"));
@@ -39,7 +39,7 @@ public static void main(String[] args) throws Exception {
             LocalCluster cluster = new LocalCluster();
             cluster.submitTopology("Case1", conf, builder.createTopology());
         
-            Thread.sleep(30000);
+            Thread.sleep(3000000);
 
             cluster.shutdown();
         }

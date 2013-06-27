@@ -47,11 +47,11 @@ public class Arima implements Serializable {
 		// running thread to call it.
 		// This could cause problem as they all try to assign their input in to
 		// R
-		//LOG.info("Got input array ");
-		//for (long l : inputs) {
-		//	System.out.print(l + ", ");
-		//}
-		//System.out.println("");
+		LOG.info("Got input array ");
+		for (long l : inputs) {
+			System.out.print(l + ", ");
+		}
+		System.out.println("");
 		if (inputs.length < 6) {
 			// While the length is less than 6, arima in R will not work,
 			// however, during the setup periode, it's possible to have less
@@ -68,10 +68,10 @@ public class Arima implements Serializable {
 		re.eval("arima" + distinguisher + "<-auto.arima(data" + distinguisher + ");");
 		re.eval("fcast" + distinguisher + "<-forecast(arima" + distinguisher + ",h=" + numPrediction + ");");
 		re.eval("r" + distinguisher + "<-summary(fcast" + distinguisher + ");");
-		//LOG.info("R operation finished");
+		LOG.info("R operation finished");
 		// This line shall be improved in terms of efficiency
 		REXP result = re.eval("r" + distinguisher + "[1];");
-		//System.out.println(result);
+		System.out.println(result);
 		double[] prediction = result.asVector().at(0).asDoubleArray();
 		for (double d : prediction) {
 			// prediction less than 0 are not allowed!

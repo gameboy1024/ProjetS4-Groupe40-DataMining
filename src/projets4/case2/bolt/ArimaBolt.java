@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 
 import projets4.basic.Arima;
 import projets4.basic.Counter;
-import projets4.basic.VideoInfoVariant;
+import projets4.case1.data.VideoInfoVariant;
 import projets4.utils.TupleHelpers;
 import backtype.storm.Config;
 import backtype.storm.task.OutputCollector;
